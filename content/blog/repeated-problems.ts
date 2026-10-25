@@ -7,7 +7,7 @@ export const repeatedProblems: Post = {
     date: '2026-10-05',
     updated: '2026-10-05',
     category: 'Labs',
-    draft: true,
+    draft: false,
     takeaways: [
         'Labs research starts only from problems seen repeating in real client work.',
         'A prototype must prove itself against real needs; failed ones are kept as notes.',

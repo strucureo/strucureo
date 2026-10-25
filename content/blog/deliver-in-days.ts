@@ -7,7 +7,7 @@ export const deliverInDays: Post = {
     date: '2026-10-05',
     updated: '2026-10-05',
     category: 'Build',
-    draft: true,
+    draft: false,
     takeaways: [
         'Speed comes from removing ambiguity early: diagnosis first, then a chosen solution path.',
         'One dedicated contact and a shared portal keep feedback loops to hours, not weeks.',
