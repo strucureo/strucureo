@@ -43,7 +43,7 @@ export const deliverInDays: Post = {
         {
             type: 'paragraph',
             segments: [
-                { text: 'Typical timelines depend on scope. [TODO: fill in real ranges, e.g. landing pages vs ERP builds, once we have enough completed projects to quote them honestly] What we can promise for every project is a fixed, visible scope before we start, and milestones small enough that you always know where things stand.' },
+                { text: 'Typical timelines depend on scope. What we can promise for every project is a fixed, visible scope before we start, and milestones small enough that you always know where things stand.' },
             ],
         },
         { type: 'heading', level: 2, text: 'One contact, one shared portal' },
@@ -69,7 +69,7 @@ export const deliverInDays: Post = {
         {
             type: 'paragraph',
             segments: [
-                { text: 'We do not launch and leave. Real users find what testing missed, so the weeks after launch are part of the project: monitoring, fixes, small adjustments, and documentation your team can actually use. [TODO: describe the standard support terms once finalised] The goal is a system that survives contact with reality, then keeps improving as your business grows.' },
+                { text: 'We do not launch and leave. Real users find what testing missed, so the weeks after launch are part of the project: monitoring, fixes, small adjustments, and documentation your team can actually use. The goal is a system that survives contact with reality, then keeps improving as your business grows.' },
             ],
         },
     ],

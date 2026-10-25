@@ -49,14 +49,14 @@ export const repeatedProblems: Post = {
         {
             type: 'paragraph',
             segments: [
-                { text: 'Prototypes are tested against real needs wherever possible, ideally inside an active Build project with the client\'s knowledge. [TODO: describe the review bar a prototype must clear before hardening, once the process is finalised] Nothing graduates on the strength of a demo alone.' },
+                { text: 'Prototypes are tested against real needs wherever possible, ideally inside an active Build project with the client\'s knowledge. Nothing graduates on the strength of a demo alone.' },
             ],
         },
         { type: 'heading', level: 2, text: 'What graduates, and what does not' },
         {
             type: 'paragraph',
             segments: [
-                { text: 'What graduates is a documented module with clear limits: what it does, what it assumes, and where it should not be used. AI agents for document Q&A, reusable admin panels, and standard integration patterns are the current tracks. [TODO: name the first graduated modules once they exist] Each one carries the history of the projects that shaped it.' },
+                { text: 'What graduates is a documented module with clear limits: what it does, what it assumes, and where it should not be used. AI agents for document Q&A, reusable admin panels, and standard integration patterns are the current tracks. Each one carries the history of the projects that shaped it.' },
             ],
         },
         {
