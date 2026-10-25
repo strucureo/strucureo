@@ -167,6 +167,28 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </Section>
             </article>
 
+            <section className="border-t border-[#111111]/10 px-6 py-12 md:px-12 lg:px-24">
+                <div className="mx-auto max-w-3xl">
+                    <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[#555555]">
+                        More from the studio
+                    </p>
+                    <h2 className="mb-8 text-4xl font-bold tracking-tighter md:text-6xl">
+                        Built something useful?
+                    </h2>
+                    <p className="mb-6 text-lg text-[#6E6E6E]">
+                        Got a manual workflow or a bottleneck you want to remove? We package proven solutions into custom software, automation and AI chatbots — usually in days to a few weeks.
+                    </p>
+                    <div className="flex flex-wrap gap-4">
+                        <a href="/services" className="px-8 py-4 bg-[#111111] text-white font-bold tracking-widest text-sm hover:bg-black/80 transition-colors uppercase">
+                            See our services
+                        </a>
+                        <a href="/blog/how-much-does-an-mvp-cost-in-india-and-dubai" className="px-8 py-4 border border-[#111111] text-[#111111] font-bold tracking-widest text-sm hover:bg-[#111111] hover:text-white transition-colors uppercase">
+                            How much an MVP costs
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <Contact />
         </main>
     );
