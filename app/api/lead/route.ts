@@ -10,11 +10,12 @@ import { NextResponse } from 'next/server';
  *  1. LEAD_WEBHOOK_URL — when set, receives the event as JSON. Highest-priority
  *     override; the owner (or the agent's own collector) can point it anywhere
  *     durable (a database, a form service, this machine behind a tunnel).
- *  2. LEAD_TG_BOT_TOKEN + LEAD_TG_CHAT_ID — when set, sends a plain-text
- *     Telegram message to the owner's chat. This is the default production
- *     sink: it needs no DNS, no tunnel and no new service, and it puts every
- *     new lead in front of the owner within a minute.
- *  3. With neither configured, the event is logged to the function log
+ *  2. LEAD_MAIL_TO — when set, emails the owner through the mail API
+ *     (MAIL_BASE_URL / MAIL_API_KEY, same as app/actions.ts). No visitor
+ *     details are sent, only type, page, referrer and time.
+ *  3. LEAD_TG_BOT_TOKEN + LEAD_TG_CHAT_ID — when set, sends a plain-text
+ *     Telegram message to the owner's chat. Fallback when mail is not set.
+ *  4. With none configured, the event is logged to the function log
  *     (visible in Vercel's dashboard) and acknowledged. The form's own email
  *     (app/actions.ts) remains the lead of record either way.
  *
@@ -31,6 +32,10 @@ const SOURCE_LABEL: Record<string, string> = {
     email: 'Email click',
     chatbot: 'Chatbot hand-off',
 };
+
+function escapeHtml(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
 export async function POST(request: Request): Promise<NextResponse> {
     let source: unknown;
@@ -72,7 +77,45 @@ export async function POST(request: Request): Promise<NextResponse> {
         }
     }
 
-    // 2. Telegram — the default production sink.
+    // 2. Mail — when LEAD_MAIL_TO is set, email the owner through the mail API.
+    //    Same endpoint and variables as app/actions.ts; no visitor details are sent.
+    const mailTo = process.env.LEAD_MAIL_TO;
+    if (mailTo) {
+        const label = SOURCE_LABEL[event.source] || event.source;
+        const rows = [
+            ['Type', label],
+            ['Page', event.page || '-'],
+            ['From', event.referrer || '-'],
+            ['Time (UTC)', event.ts],
+        ]
+            .map(([k, v]) => `<tr><td><strong>${k}</strong></td><td>${escapeHtml(v)}</td></tr>`)
+            .join('');
+        try {
+            const res = await fetch(
+                `${process.env.MAIL_BASE_URL || 'https://api.driftspike.space'}/api/send-email`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'x-api-key': process.env.MAIL_API_KEY || '',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        to: mailTo,
+                        subject: `New lead — ${label}`,
+                        html: `<h3>New lead</h3><table cellpadding="4">${rows}</table>`,
+                    }),
+                },
+            );
+            if (!res.ok) console.error('lead mail delivery failed:', res.status);
+            return NextResponse.json({ ok: true, delivered: res.ok, sink: 'mail' });
+        } catch (err) {
+            console.error('lead mail delivery failed:', err);
+            // A tracking failure must not break the visitor's action: still 200.
+            return NextResponse.json({ ok: true, delivered: false, sink: 'mail' });
+        }
+    }
+
+    // 3. Telegram — fallback sink when mail is not configured.
     const botToken = process.env.LEAD_TG_BOT_TOKEN;
     const chatId = process.env.LEAD_TG_CHAT_ID;
     if (botToken && chatId) {
@@ -94,7 +137,7 @@ export async function POST(request: Request): Promise<NextResponse> {
         }
     }
 
-    // 3. No durable sink: acknowledged and logged, not stored.
+    // 4. No durable sink: acknowledged and logged, not stored.
     console.log('lead event (no sink configured):', JSON.stringify(event));
     return NextResponse.json({ ok: true, stored: false, sink: 'none' });
 }
