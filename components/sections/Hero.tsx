@@ -18,7 +18,6 @@ export const Hero = () => {
     { label: 'Labs', href: '/labs' },
     { label: 'Industries', href: '/industries' },
     { label: 'UAE', href: '/uae' },
-    { label: 'India', href: '/india' },
     { label: 'FAQ', href: '/faq' },
     { label: 'Blog', href: '/blog' },
     { label: 'Work', href: 'https://portfolio.strucureo.com' },
@@ -151,9 +150,9 @@ export const Hero = () => {
               <span className="block">Working systems out.</span>
             </motion.h1>
 
-            {/* Answer-first line (E1), names Strucureo and what it does. F-owner-01 */}
+            {/* Answer-first line (E1), names Strucureo and what it does. F-01/F-02 */}
             <p className="mt-6 text-lg md:text-xl font-light text-[#6E6E6E] max-w-3xl leading-relaxed">
-              Strucureo is an engineering studio that turns complex business problems into working systems: custom software, automation, AI chatbots, ERP systems and websites for the UAE and India.
+              Strucureo is an engineering studio that works on embedded and connected systems, AI and agentic infrastructure, and secure platforms — engineering the solution around the problem, using hardware, software and AI where each one adds real value.
             </p>
           </motion.div>
 
@@ -164,7 +163,7 @@ export const Hero = () => {
           >
             <div className="flex flex-col gap-6">
               <p className="text-xl md:text-2xl font-light text-[#6E6E6E] max-w-2xl leading-relaxed">
-                We find the root cause, show you more than one way to solve it, and build the system you choose. Systems carry the repeatable work. People bring the new ideas.
+                We start with technical discovery — what is actually failing, what the environment allows, and what evidence would prove the fix. Then we build: prototype, pilot, production.
               </p>
               <div className="flex flex-col md:flex-row gap-4 items-start">
                 <Magnetic strength={0.15}>
@@ -173,7 +172,7 @@ export const Hero = () => {
                     onClick={() => playTick()}
                     className="px-8 py-4 bg-[#111111] text-white font-bold tracking-widest text-sm hover:bg-black/80 transition-colors uppercase"
                   >
-                    Book a free consultation
+                    Start a technical conversation
                   </a>
                 </Magnetic>
               </div>

@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import type { LucideIcon } from 'lucide-react';
 import {
     Bot,
-    Code2,
-    Database,
-    Layout,
-    Rocket,
-    Workflow,
+    CircuitBoard,
+    Layers,
+    ScanEye,
+    Server,
+    ShieldCheck,
 } from 'lucide-react';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { buildServiceNodes, breadcrumbList } from '@/lib/jsonld';
@@ -32,139 +32,157 @@ type Service = {
     icon: LucideIcon;
 };
 
+/**
+ * Capability list, not a product catalogue. Each heading describes scope we can
+ * work in; none of them asserts production readiness, certification or a
+ * delivered result. See docs/campaign-2026-11/facts-register.md (F-05, F-06).
+ */
 const services: Service[] = [
     {
-        title: 'Website Development',
+        title: 'Product & Systems Engineering',
         description:
-            'Conversion-focused marketing sites, service websites, landing pages, and product pages built for speed, SEO, and trust.',
-        includes: ['Next.js builds', 'SEO foundations', 'Responsive UI', 'Analytics setup'],
-        icon: Layout,
+            'Technical discovery, feasibility, prototyping, integration and product development — one path from an unclear problem to something you can operate.',
+        includes: ['Discovery', 'Feasibility', 'Prototyping', 'Integration', 'Product development'],
+        icon: Layers,
     },
     {
-        title: 'AI Chatbot Development',
+        title: 'Software & Infrastructure Engineering',
         description:
-            'Customer support bots, internal assistants, and AI workflows connected to your documents, systems, and escalation paths.',
-        includes: ['Knowledge base setup', 'Lead capture', 'Human handoff', 'Workflow automation'],
+            'Backends, platforms, APIs and systems architecture, designed for the load and the change the system will actually meet.',
+        includes: ['Backend systems', 'APIs', 'Platform architecture', 'Technical integrations', 'Infrastructure'],
+        icon: Server,
+    },
+    {
+        title: 'AI & Agentic Systems Engineering',
+        description:
+            'Agents, orchestration and tool integration, built so behaviour is observed, bounded and reviewable rather than assumed.',
+        includes: ['Agent design', 'Tool integration', 'Orchestration', 'Evaluations', 'Controlled learning workflows'],
         icon: Bot,
     },
     {
-        title: 'ERP & Operations Systems',
+        title: 'Embedded & Connected Systems',
         description:
-            'Custom dashboards and business systems for teams that need clean workflows instead of spreadsheet chaos.',
-        includes: ['Inventory flows', 'Order management', 'Role access', 'Reporting dashboards'],
-        icon: Database,
+            'Embedded Linux, device integration, gateways and the boundary where hardware meets software.',
+        includes: ['Embedded Linux', 'Device integration', 'Gateways', 'Sensor and bus interfaces', 'Hardware–software interfaces'],
+        icon: CircuitBoard,
     },
     {
-        title: 'Custom Software',
+        title: 'Machine Vision & Inspection',
         description:
-            'Purpose-built tools for unique business problems, from internal portals to customer-facing platforms.',
-        includes: ['Architecture planning', 'API integrations', 'Admin panels', 'Secure data flows'],
-        icon: Code2,
+            'Visual inspection and defect detection, with the feedback loop that shows whether the system is actually working on your line.',
+        includes: ['Visual inspection', 'Defect detection', 'Labelled feedback', 'Candidate evaluation', 'Controlled deployment'],
+        icon: ScanEye,
     },
     {
-        title: 'Startup MVP Development',
+        title: 'Secure Data & AI Infrastructure',
         description:
-            'Lean product builds that help founders validate an idea quickly without overbuilding the first version.',
-        includes: ['Product scope', 'Clickable flows', 'Launch build', 'Iteration roadmap'],
-        icon: Rocket,
-    },
-    {
-        title: 'Automation & Cloud Support',
-        description:
-            'System cleanup, deployment automation, cloud setup, and operational improvements for existing products.',
-        includes: ['Cloud deployment', 'CI/CD setup', 'Performance fixes', 'Monitoring basics'],
-        icon: Workflow,
+            'Permissioned data access, isolation, policy enforcement and privacy-oriented architecture for systems that hold sensitive data.',
+        includes: ['Permissioned access', 'Isolation', 'Policy enforcement', 'Threat modelling', 'Privacy-oriented design'],
+        icon: ShieldCheck,
     },
 ];
 
 const serviceAnchors: Record<string, string> = {
-    'Custom Software': 'software',
-    'Automation & Cloud Support': 'software',
-    'AI Chatbot Development': 'chatbots',
-    'ERP & Operations Systems': 'erp',
-    'Website Development': 'websites',
-    'Startup MVP Development': 'mvp',
+    'Product & Systems Engineering': 'product-systems',
+    'Software & Infrastructure Engineering': 'software-infrastructure',
+    'AI & Agentic Systems Engineering': 'ai-agentic',
+    'Embedded & Connected Systems': 'embedded',
+    'Machine Vision & Inspection': 'machine-vision',
+    'Secure Data & AI Infrastructure': 'secure-data',
 };
 
+/**
+ * Engagement path. Deliberately not a fixed timeline and not a guarantee: each
+ * stage can end the engagement if the evidence does not support going further.
+ */
 const processSteps = [
     {
-        title: 'Diagnose',
+        title: 'Discovery',
         description:
-            'We clarify the business problem, current bottlenecks, users, constraints, and success metrics.',
+            'We map the problem, the current equipment and software environment, the constraints, and what a working outcome would look like.',
     },
     {
-        title: 'Design Options',
+        title: 'Feasibility',
         description:
-            'You receive practical solution paths with the trade-offs, and we agree a fixed-price roadmap before any code is written.',
+            'We test the assumptions that decide whether the approach can work at all, and say so plainly when it cannot.',
     },
     {
-        title: 'Build',
+        title: 'Prototype',
         description:
-            'We ship in focused milestones, keep scope visible, and avoid unnecessary engineering ceremony.',
+            'A bounded build against real conditions, with the parts that are still unknown labelled as unknown.',
     },
     {
-        title: 'Launch & Support',
+        title: 'Pilot',
         description:
-            'We help deploy, monitor, document, and improve the system after real users start using it.',
+            'Limited deployment with defined measurements, so the decision to continue is based on observed behaviour rather than optimism.',
+    },
+    {
+        title: 'Production & support',
+        description:
+            'Engineering, handover and support for the system that survives the pilot — with operating limits written down.',
     },
 ];
 
 const deliveryStandards = [
-    'Clear technical scope before build',
-    'Modern responsive interface',
-    'Secure authentication and access patterns when needed',
-    'Documented integrations and admin flows',
-    'Performance and SEO basics included',
-    'Post-launch support path',
+    'Technical scope agreed before build',
+    'Performance and reliability targets defined before build',
+    'Secure access and permission patterns where data requires them',
+    'Documented interfaces, integrations and operating limits',
+    'Evidence of behaviour, not only delivery of code',
+    'Hardware procurement, installation and testing ownership agreed per engagement',
+    'Post-handover support path',
 ];
 
 const faqItems = [
     {
-        question: 'What does Strucureo Build offer?',
+        question: 'What does Strucureo Build do?',
         answer:
-            'Strucureo Build delivers custom software development, AI chatbot development, web development, ERP system development, startup MVP builds, and cloud automation. We deliver focused software for startups and small businesses in days to a few weeks, depending on scope.',
+            'Strucureo Build is the client engineering arm of Strucureo. We diagnose a technical problem, then design and build the system around it — hardware, software, AI or a combination, whichever the evidence supports.',
     },
     {
-        question: 'How fast can Strucureo build a website or software product?',
+        question: 'What kind of problems do you take on?',
         answer:
-            'Most websites and MVPs are delivered in days to a few weeks, depending on scope. We follow a structured process: Diagnose, Design Options, Build, and Launch & Support.',
+            'Problems where the cause is not obvious from the outside: a process that breaks under load, a device that will not integrate cleanly, an inspection step that depends on human judgement, or an AI workflow whose behaviour nobody can measure yet. If the problem is genuinely a five-page website, we are not the right studio for it.',
     },
     {
-        question: 'Who is the founder of Strucureo?',
+        question: 'Do you work on hardware and software together?',
         answer:
-            'Strucureo was founded on February 26, 2026, by Nagaratinam S. Under his leadership as Managing Director, the team brings expertise in software engineering, business strategy, and operations.',
+            'Yes, where the problem crosses the boundary. Embedded Linux, device integration, gateways and hardware–software interfaces sit alongside our software and AI work. Proprietary hardware support, certification and field service are agreed per engagement rather than assumed.',
+    },
+    {
+        question: 'How long does an engagement take?',
+        answer:
+            'There is no fixed timeline, and we will not quote one before discovery. A feasibility study and a prototype are usually short and bounded; a pilot and production rollout depend on the environment being measured. The engagement path is discovery, feasibility, prototype, pilot, then production and support — and it can stop at any stage if the evidence does not justify continuing.',
+    },
+    {
+        question: 'How is pricing set?',
+        answer:
+            'Each engagement is scoped and priced on its own work. We agree the scope of the next stage before starting it, so cost is known before build. We do not carry a website-project price floor into engineering work.',
+    },
+    {
+        question: 'Who owns hardware procurement, installation, certification and IP?',
+        answer:
+            'These are defined per engagement and written into the agreement before work starts. We do not assume responsibility for a certification or an installation the client has not explicitly scoped with us.',
     },
     {
         question: 'Does Strucureo work with international clients?',
         answer:
-            'Yes. Strucureo works with clients for the UAE and India, and with clients worldwide, overlapping both time zones. We operate as a remote engineering studio.',
+            'Yes. We are a remote engineering studio and our current acquisition focus is the UAE and Singapore, with clients elsewhere handled case by case. We do not claim an office or a local presence in either market.',
+    },
+    {
+        question: 'Who is the founder of Strucureo?',
+        answer:
+            'Strucureo was founded on February 26, 2026, by Nagaratinam S, who leads the company as Managing Director.',
     },
     {
         question: 'What technologies does Strucureo use?',
         answer:
-            'Strucureo builds with modern technologies including Next.js, React, TypeScript, Tailwind CSS, Three.js for 3D experiences, Supabase for backend services, and various AI/ML tools for automation and chatbot development.',
-    },
-    {
-        question: 'How much does custom software development cost with Strucureo?',
-        answer:
-            'Pricing depends on project scope and complexity. Strucureo offers focused, cost-effective builds for startups and small businesses. Contact us with your requirements for a tailored quote and timeline.',
-    },
-    {
-        question: 'Does Strucureo work with startups based in Dubai / UAE?',
-        answer: 'Yes. We are specifically structured to support businesses across Dubai, Abu Dhabi, and the wider UAE. Whether you need a local corporate website, an MVP for a DIFC-based startup, or custom operations software, our team is equipped to deliver rapidly while accommodating your timezone.',
-    },
-    {
-        question: 'Can Strucureo build software for businesses in India with local payment gateway integration (UPI, Razorpay, etc.)?',
-        answer: 'Yes. We can integrate domestic payment gateways like Razorpay, Cashfree and PayU, alongside UPI and standard gateways like Stripe.',
-    },
-    {
-        question: 'What is the typical cost of custom software development in UAE / India?',
-        answer: 'Pricing depends on scope. Every engagement starts with diagnosis and a fixed-price roadmap agreed before any code is written. Contact us with your requirements for a tailored quote and timeline.',
+            'We choose the stack from the problem rather than the reverse. Our work has involved Rust and embedded Linux, TypeScript and Next.js, Python services, relational and vector data stores, and agent tooling built on the Model Context Protocol. A stack list is not a capability claim; the engagement scope is.',
     },
     {
         question: 'What does Strucureo Build not do?',
         answer:
-            'Build does not do open-ended staff augmentation, take over large legacy codebases sight unseen, or promise fixed timelines before diagnosis. Every engagement starts with a defined scope and a chosen solution path. Research without a client problem belongs in Labs, and packaged products belong in Industries.',
+            'Build does not do open-ended staff augmentation, take over large legacy codebases sight unseen, or promise fixed timelines before discovery. Every engagement starts with a defined scope and a chosen solution path. Research without a client problem belongs in Labs, and packaged products belong in Industries.',
     },
 ];
 
@@ -184,10 +202,9 @@ const faqSchema = {
 const howToSchema = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
-    name: 'Strucureo Software Development Process',
+    name: 'Strucureo Engineering Engagement Path',
     description:
-        'Our 4-step structured approach to building software products quickly and effectively.',
-    totalTime: 'P2W',
+        'Our engagement path from an unclear technical problem to a supported production system.',
     step: processSteps.map((step, index) => ({
         '@type': 'HowToStep',
         name: step.title,
@@ -197,12 +214,7 @@ const howToSchema = {
     })),
 };
 
-const listedServiceNames = [
-    'Website Development',
-    'AI Chatbot Development',
-    'ERP & Operations Systems',
-    'Startup MVP Development',
-];
+const listedServiceNames = services.map((service) => service.title);
 
 const serviceSchema = {
     '@context': 'https://schema.org',
@@ -219,26 +231,26 @@ const breadcrumbSchema = breadcrumbList([
 ]);
 
 export const metadata: Metadata = {
-    title: 'Custom Software, Automation, AI Chatbots & ERP | Strucureo',
-    description: 'Strucureo Build turns manual work into systems: custom software, process automation, AI chatbots, ERP, websites and MVPs. Fixed scope, one contact.',
+    title: 'Engineering Capabilities: Embedded, Software, AI & Secure Systems | Strucureo',
+    description:
+        'Strucureo Build engineers solutions around real technical problems: product and systems engineering, software and infrastructure, AI and agentic systems, embedded and connected systems, machine vision, and secure data infrastructure.',
     keywords: [
-        'custom software development',
-        'AI chatbot development',
-        'web development',
-        'ERP system development',
-        'startup MVP development',
-        'cloud automation',
-        'Next.js development',
-        'software agency',
-        'engineering studio',
-        'rapid software development',
+        'engineering studio UAE',
+        'embedded systems engineering',
+        'AI agentic systems engineering',
+        'machine vision inspection',
+        'secure data infrastructure',
+        'systems engineering Singapore',
+        'hardware software integration',
+        'technical feasibility study',
     ],
     alternates: {
         canonical: `${SITE_URL}/services`,
     },
     openGraph: {
-        title: 'Custom Software, Automation, AI Chatbots & ERP | Strucureo',
-        description: 'Strucureo Build turns manual work into systems: custom software, process automation, AI chatbots, ERP, websites and MVPs.',
+        title: 'Engineering Capabilities: Embedded, Software, AI & Secure Systems | Strucureo',
+        description:
+            'We engineer solutions and products around real technical problems — using hardware, software and AI where it adds value.',
         url: `${SITE_URL}/services`,
         siteName: 'Strucureo',
         type: 'website',
@@ -280,21 +292,21 @@ export default function ServicesPage() {
 
             <PageHero
                 eyebrow="Strucureo Build"
-                title="Custom software and automation for complex business problems"
-                intro="Strucureo Build designs and builds the software that replaces manual, scattered work: custom software, process automation, AI chatbots, ERP systems, websites and MVPs. Every project starts with a diagnosis and a fixed-price roadmap."
-                definition="Strucureo Build is the client software arm of Strucureo, an engineering studio for the UAE and India. It turns manual, scattered work into working systems. Projects start from 15,000 INR (about AED 570 or USD 180), depending on scope."
+                title="Engineering for problems that do not fit a product catalogue"
+                intro="Strucureo Build is client engineering. We diagnose the technical problem, then design and build the system around it — hardware, software and AI where each one earns its place, and nothing added because it is fashionable."
+                definition="Strucureo Build is the client engineering arm of Strucureo, an engineering studio working with companies in the UAE, Singapore and beyond. Engagements begin with technical discovery and a scoped plan agreed before build."
                 points={[
-                    { number: '01', label: 'Days to a few weeks, by scope' },
-                    { number: '02', label: 'From 15,000 INR, by scope' },
-                    { number: '03', label: 'One dedicated contact' },
-                    { number: '04', label: 'Support after launch' },
+                    { number: '01', label: 'Discovery before build' },
+                    { number: '02', label: 'Hardware, software and AI in one system' },
+                    { number: '03', label: 'Evidence-based milestones' },
+                    { number: '04', label: 'Support after handover' },
                 ]}
             />
 
             <SplitList
-                eyebrow="Strucureo Build"
-                title="What we build"
-                intro="Each build can be delivered as a focused project or combined into a larger product build."
+                eyebrow="Capabilities"
+                title="What we take on"
+                intro="Capabilities describe the scope we can work in. They are not a claim of certification, or of a delivered result in your environment."
             >
                 {services.map((service, index) => (
                     <NumberedRow
@@ -317,13 +329,13 @@ export default function ServicesPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                     <div className="relative">
                         <div className="relative z-10">
-                            <AnimatedText text="Process" className="text-xs uppercase tracking-[0.2em] mb-6 block opacity-50" />
+                            <AnimatedText text="Engagement path" className="text-xs uppercase tracking-[0.2em] mb-6 block opacity-50" />
                             <AnimatedText
-                                text="Structured from first call to launch."
+                                text="Each stage has to earn the next one."
                                 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-6"
                             />
                             <AnimatedText
-                                text="The goal is not just to write code. The goal is to reduce ambiguity, choose the right technical path, and ship something that can survive real usage."
+                                text="Discovery, feasibility, prototype, pilot, production. It is a path, not a fixed timeline, and it stops if the evidence does not support continuing."
                                 className="text-xl md:text-2xl font-light text-[#6E6E6E] leading-relaxed mb-8 max-w-md"
                                 delay={0.2}
                             />

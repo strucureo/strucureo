@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import type { LucideIcon } from 'lucide-react';
 import {
     Bot,
-    FlaskConical,
-    Puzzle,
+    CircuitBoard,
+    ScanEye,
+    ShieldCheck,
 } from 'lucide-react';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { breadcrumbList, faqPageNode } from '@/lib/jsonld';
@@ -15,6 +16,7 @@ import { NumberedRow } from '@/components/shared/NumberedRow';
 import { Section } from '@/components/shared/Section';
 import { AnimatedText } from '@/components/shared/AnimatedText';
 import { Contact } from '@/components/sections/Contact';
+import { ProjectEvidence } from '@/components/sections/ProjectEvidence';
 
 const SITE_URL = 'https://www.strucureo.com';
 
@@ -27,25 +29,32 @@ type FocusArea = {
 
 const focusAreas: FocusArea[] = [
     {
-        title: 'AI Agents',
+        title: 'Agentic systems & evaluation',
         description:
-            'Assistants and workflows that read your documents, draft answers, and hand off cleanly to humans when needed.',
-        includes: ['Document Q&A', 'Lead capture', 'Human handoff'],
+            'Agents, tool use and orchestration built with the evaluation harness first, so behaviour is observed rather than described in a demo.',
+        includes: ['Agent design', 'Tool integration', 'Evaluation harnesses', 'Failure analysis'],
         icon: Bot,
     },
     {
-        title: 'Reusable Modules',
+        title: 'Machine vision & inspection',
         description:
-            'Small, proven building blocks from client work — auth flows, dashboards, and integrations we can reuse with confidence.',
-        includes: ['Auth patterns', 'Admin panels', 'Integrations', 'UI blocks'],
-        icon: Puzzle,
+            'Visual inspection and defect detection, including the expert-confirmation loop that turns uncertain cases into usable labelled data.',
+        includes: ['Defect detection', 'Uncertain-case routing', 'Expert confirmation', 'Candidate evaluation'],
+        icon: ScanEye,
     },
     {
-        title: 'Prototypes',
+        title: 'Secure data & AI infrastructure',
         description:
-            'Fast, throwaway-to-keeper experiments that test an idea with real users before it becomes a product.',
-        includes: ['Clickable flows', 'Rapid builds', 'User testing', 'Go/no-go notes'],
-        icon: FlaskConical,
+            'Permissioned access, isolation and policy enforcement for systems that hold sensitive data, where the threat model comes before the feature.',
+        includes: ['Threat modelling', 'Permission checks', 'Isolation', 'Output controls'],
+        icon: ShieldCheck,
+    },
+    {
+        title: 'Embedded & connected prototypes',
+        description:
+            'Embedded Linux, gateways and hardware–software interfaces, prototyped against real devices rather than simulated ones.',
+        includes: ['Embedded Linux', 'Device integration', 'Gateways', 'Sensor interfaces'],
+        icon: CircuitBoard,
     },
 ];
 
@@ -53,22 +62,22 @@ const graduationSteps = [
     {
         title: 'Spot the pattern',
         description:
-            'Strucureo Build client work reveals a problem that keeps repeating across projects.',
+            'Client engineering work reveals a problem that keeps repeating across projects and environments.',
     },
     {
         title: 'Research in Labs',
         description:
-            'Labs explores approaches, builds a prototype, and tests it against real client needs.',
+            'Labs explores approaches, builds a prototype, and tests it against real conditions and real constraints.',
     },
     {
-        title: 'Harden the module',
+        title: 'Prove the limits',
         description:
-            'What works is hardened into a documented, reusable module with clear limits.',
+            'What works is documented with its operating limits, measured behaviour and the cases where it fails.',
     },
     {
         title: 'Graduate to Industries',
         description:
-            'Proven modules are packaged into ready-made industry products.',
+            'Only validated work is packaged into an industry product. Anything unproven stays labelled as research.',
     },
 ];
 
@@ -76,12 +85,12 @@ const faqItems = [
     {
         question: 'What is Strucureo Labs?',
         answer:
-            'Strucureo Labs is the research arm of our engineering studio. It turns repeated problems seen in Strucureo Build client work into tested prototypes, AI agents, and reusable modules.',
+            'Strucureo Labs is the research arm of our engineering studio. It turns problems seen in client engineering work into tested prototypes, evaluated agent systems, inspection approaches and reusable modules.',
     },
     {
         question: 'How do Labs ideas become products?',
         answer:
-            'Ideas graduate in four steps: spot the pattern in client work, research and prototype in Labs, harden what works into a reusable module, and package proven modules into Strucureo Industries products.',
+            'Ideas graduate in four steps: spot the pattern in client work, research and prototype in Labs, document what works together with its limits, and package only validated work into Strucureo Industries products.',
     },
     {
         question: 'Can I commission Labs research?',
@@ -91,33 +100,35 @@ const faqItems = [
     {
         question: 'How does Strucureo Labs pick what to research?',
         answer:
-            'Labs only researches problems that repeat across real Strucureo Build client work. When the same need appears in several projects, it becomes a research candidate. This keeps every prototype anchored to something clients already pay to solve.',
+            'Labs researches problems that repeat across real engineering work. When the same need appears in several projects, it becomes a research candidate. This keeps every prototype anchored to something a client already needs solved.',
     },
     {
         question: 'How long does Labs research take?',
         answer:
-            'It depends on the question the prototype has to answer. Most tracks run alongside active client work so prototypes meet real data and real users early. We publish what graduates and what does not.',
+            'It depends on the question the prototype has to answer. There is no standard research timeline, and a track can conclude that the approach does not work. We publish what graduates and what does not.',
     },
     {
         question: 'Can I buy a Labs prototype directly?',
         answer:
-            'No. Prototypes are experiments, not products, and they ship only as part of a Build project or as graduated Industries packages. If your project surfaces a repeating problem, Labs may research it with your knowledge — and you keep the working result.',
+            'No. Prototypes are experiments, not products, and they ship only as part of a Build engagement or as graduated Industries packages. Labelling something a prototype is not a hedge — it means the limits are still being measured.',
     },
     {
         question: 'What does Strucureo Labs not do?',
         answer:
-            'Labs does not take on standalone research commissions, chase technology for its own sake, or ship untested prototypes as products. If an idea cannot point to repeated client pain, it waits. One-off needs stay in Build, where they get solved directly without research overhead.',
+            'Labs does not take on standalone research commissions, chase technology for its own sake, or ship untested prototypes as products. It also does not publish accuracy, throughput or reliability figures it has not measured in the conditions it describes.',
     },
 ];
 
 export const metadata: Metadata = {
     title: 'Strucureo Labs: Research on Problems That Repeat',
-    description: 'Strucureo Labs studies business problems that repeat across client work and turns them into tested prototypes, AI agents and reusable modules.',
+    description:
+        'Strucureo Labs researches agentic systems and evaluation, machine vision and inspection, secure data infrastructure, and embedded prototypes — and labels what is proven and what is still a concept.',
     keywords: [
         'Strucureo Labs',
-        'AI agents research',
-        'reusable software modules',
-        'software prototypes',
+        'agentic systems research',
+        'machine vision research',
+        'secure data infrastructure',
+        'embedded systems prototypes',
         'engineering studio research',
     ],
     alternates: {
@@ -125,7 +136,8 @@ export const metadata: Metadata = {
     },
     openGraph: {
         title: 'Strucureo Labs: Research on Problems That Repeat',
-        description: 'AI agents, reusable modules, and prototypes — how Labs turns client problems into products.',
+        description:
+            'Agentic systems, machine vision, secure data infrastructure and embedded prototypes — with the maturity of each one stated.',
         url: `${SITE_URL}/labs`,
         siteName: 'Strucureo',
         type: 'website',
@@ -164,19 +176,19 @@ export default function LabsPage() {
             <PageHero
                 eyebrow="Strucureo Labs"
                 title="Strucureo Labs: research on problems that repeat"
-                intro="Strucureo Labs studies the business problems that keep coming back in client work, and turns them into tested prototypes, AI agents and reusable modules. What works returns to Build, so the next client project starts with more than a blank page."
-                definition="Strucureo Labs is the research arm of Strucureo, an engineering studio for the UAE and India. It turns problems that repeat across client work into tested prototypes, AI agents and reusable modules."
+                intro="Strucureo Labs studies the technical problems that keep coming back in client work, and turns them into tested prototypes, evaluated agent systems and reusable modules. What works returns to Build with its limits documented."
+                definition="Strucureo Labs is the research arm of Strucureo, an engineering studio working with companies in the UAE, Singapore and beyond. It turns problems that repeat across client work into tested prototypes and reusable modules."
                 points={[
                     { number: '01', label: 'Driven by client work' },
-                    { number: '02', label: 'Tested with real users' },
-                    { number: '03', label: 'Graduates to products' },
+                    { number: '02', label: 'Tested against real conditions' },
+                    { number: '03', label: 'Concepts stay labelled as concepts' },
                 ]}
             />
 
             <SplitList
                 eyebrow="What Labs Researches"
-                title="Focus areas"
-                intro="Three tracks, all fed by problems seen in Strucureo Build client work."
+                title="Research tracks"
+                intro="Four tracks, all fed by problems seen in client engineering work."
             >
                 {focusAreas.map((area, index) => (
                     <NumberedRow
@@ -204,7 +216,7 @@ export default function LabsPage() {
                                 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-6"
                             />
                             <AnimatedText
-                                text="Not every experiment survives. Only work proven against real client needs moves toward Strucureo Industries packaging."
+                                text="Not every experiment survives. Only work proven against real conditions moves toward Strucureo Industries packaging."
                                 className="text-xl md:text-2xl font-light text-[#6E6E6E] leading-relaxed mb-8 max-w-md"
                                 delay={0.2}
                             />
@@ -224,6 +236,8 @@ export default function LabsPage() {
                     </div>
                 </div>
             </Section>
+
+            <ProjectEvidence />
 
             <section className="border-t border-[#111111]/10 px-6 py-20 md:px-12 lg:px-24">
                 <div className="mx-auto max-w-3xl">

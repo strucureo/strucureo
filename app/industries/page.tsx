@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import type { LucideIcon } from 'lucide-react';
 import {
-    Boxes,
     Factory,
     Handshake,
+    ScanEye,
 } from 'lucide-react';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { breadcrumbList, faqPageNode } from '@/lib/jsonld';
@@ -25,25 +25,30 @@ type ProductLine = {
     icon: LucideIcon;
 };
 
+/**
+ * 2026-11 repositioning: no product line here is claimed as deployed, and no
+ * customer, plant or performance figure is published. See
+ * docs/campaign-2026-11/facts-register.md (F-06, F-10, F-11).
+ */
 const productLines: ProductLine[] = [
     {
-        title: 'Ready-made products',
+        title: 'Industrial visual inspection',
         description:
-            'Ready-made products for specific industries, built from proven Labs modules.',
+            'An inspection workflow for production environments: inspect, flag the cases the model is unsure about, route them to an expert, then evaluate candidates before anything is deployed into an acceptance decision.',
+        includes: ['Inspection workflow', 'Uncertain-case routing', 'Expert confirmation', 'Labelled feedback', 'Candidate evaluation'],
+        icon: ScanEye,
+    },
+    {
+        title: 'Operations systems for industry',
+        description:
+            'Configured operational systems around production, maintenance and quality work, built from components proven in client engineering rather than from a blank page.',
         includes: ['Configuration', 'Guided setup', 'Team training', 'Support path'],
         icon: Factory,
     },
     {
-        title: 'Configured to your team',
-        description:
-            'Ready-made products configured to your team, data and workflow, built from proven Labs modules.',
-        includes: ['Configuration', 'Guided setup', 'Team training', 'Support path'],
-        icon: Boxes,
-    },
-    {
         title: 'Early-partner builds',
         description:
-            'For industries we have not packaged yet: a Build project shaped into a reusable starting point, with early-partner input.',
+            'For industries we have not packaged yet: a scoped Build engagement shaped into a reusable starting point, with your team feeding the roadmap.',
         includes: ['Scoped pilot', 'Your feedback', 'Roadmap input'],
         icon: Handshake,
     },
@@ -53,22 +58,22 @@ const differenceSteps = [
     {
         title: 'Start from proven work',
         description:
-            'Industry products begin as Labs-tested modules from real client builds — not from a blank page.',
+            'Industry products begin as validated modules from real client engineering — not from a blank page and not from a slide.',
     },
     {
         title: 'Configured, not custom-built',
         description:
-            'Instead of a full custom project, we configure the ready-made product to your team, data, and workflow.',
+            'Instead of a full custom project, we configure the product to your team, data, and workflow, and say which parts are still being proven.',
     },
     {
-        title: 'Faster to value',
+        title: 'Measured before launched',
         description:
-            'Because the core is proven, launch focuses on setup, training, and adoption rather than ground-up engineering.',
+            'A pilot with defined measurements comes before any production use. Missed defects, false rejects, latency and operating conditions are evaluated separately.',
     },
     {
         title: 'Keeps improving',
         description:
-            'Improvements from each deployment feed back into Labs and return to Build as stronger modules.',
+            'What each deployment teaches feeds back into Labs and returns to Build as a stronger module — recorded, not assumed.',
     },
 ];
 
@@ -76,22 +81,27 @@ const faqItems = [
     {
         question: 'What are Strucureo Industries products?',
         answer:
-            'Strucureo Industries offers ready-made products for specific industries, packaged from proven Strucureo Labs research. The first packages are being shaped with early partners now.',
+            'Strucureo Industries packages validated Strucureo Labs work into industry products. The first packages are being shaped with early partners, so none of them is claimed as deployed at a customer site yet.',
     },
     {
         question: 'How is this different from a custom Build project?',
         answer:
-            'A Build project is custom software designed around your specific problem. An Industries product starts from a proven, ready-made core and is configured to your team — faster to launch, narrower in scope, and shaped by prior deployments.',
+            'A Build engagement is engineered around your specific problem. An Industries product starts from a validated core and is configured to your team — narrower in scope, faster to start, and shaped by prior deployments where those exist.',
+    },
+    {
+        question: 'Is there a working visual-inspection product I can buy?',
+        answer:
+            'No. Industrial visual inspection is at early-partner stage: the inspection workflow and the expert-confirmation loop exist as engineering work, but there is no packaged product with published accuracy figures. We will not present one until the measurements exist.',
     },
     {
         question: 'How do I become an early partner?',
         answer:
-            'If your industry is not packaged yet, we can run a scoped Build pilot shaped with your input.',
+            'If your industry is not packaged yet, we can run a scoped Build pilot shaped with your input. Early partners get direct input into the roadmap, and the limits of what has been proven are stated up front.',
     },
     {
         question: 'Which industries does Strucureo Industries serve?',
         answer:
-            'The first industry packages are being shaped with early partners now, so the list is still open. If your industry is not packaged yet, a scoped Build pilot can become the starting point — and you help define the product.',
+            'The first packages are being shaped with early partners now, so the list is still open. If your industry is not packaged yet, a scoped Build pilot can become the starting point — and you help define the product.',
     },
     {
         question: 'What does an Industries engagement cost?',
@@ -99,32 +109,29 @@ const faqItems = [
             'Pricing depends on the package and the configuration your team needs. Every engagement starts with a scoped pilot, so you approve a fixed shape before committing further.',
     },
     {
-        question: 'How do I join the early-partner list?',
-        answer:
-            'Contact us through the consultation form and tell us your industry and workflow. If there is a matching starting point, we will show it. If not, we will propose a scoped pilot shaped with your team — early partners get direct input into the roadmap.',
-    },
-    {
         question: 'What does Strucureo Industries not do?',
         answer:
-            'Industries does not build fully custom software — that is Build — and does not sell unfinished prototypes — that is Labs. Each product starts from a proven, shared core and is configured to fit.',
+            'Industries does not build fully custom systems — that is Build — and does not sell unfinished prototypes as products — that is Labs. It also does not publish a deployment, precision or uptime claim that has not been measured.',
     },
 ];
 
 export const metadata: Metadata = {
-    title: 'Strucureo Industries: Products in the Making',
-    description: 'Strucureo Industries is shaping its first industry products with early partners, built from proven Labs work. Configured to your team.',
+    title: 'Strucureo Industries: Industry Products in Shaping',
+    description:
+        'Strucureo Industries is shaping its first industry products with early partners, starting with industrial visual inspection. Configured to your team, and labelled honestly while still in progress.',
     keywords: [
         'Strucureo Industries',
+        'industrial visual inspection',
         'industry software products',
-        'ready-made business software',
         'engineering studio products',
     ],
     alternates: {
         canonical: `${SITE_URL}/industries`,
     },
     openGraph: {
-        title: 'Strucureo Industries: Ready-Made Products | Strucureo',
-        description: 'Ready-made industry products from proven Labs work — plus early-partner pilots for new industries.',
+        title: 'Strucureo Industries: Industry Products in Shaping',
+        description:
+            'Industry products from validated engineering work — starting with industrial visual inspection, shaped with early partners.',
         url: `${SITE_URL}/industries`,
         siteName: 'Strucureo',
         type: 'website',
@@ -163,10 +170,10 @@ export default function IndustriesPage() {
             <PageHero
                 eyebrow="Strucureo Industries"
                 title="Industry products, shaped with early partners."
-                intro="Strucureo Industries packages work that has already proven itself into ready-made products for specific industries. Packaged from proven Labs work — configured to your team instead of built from scratch."
-                definition="Strucureo Industries is the product arm of Strucureo, an engineering studio for the UAE and India. It packages proven Labs work into ready-made products for specific industries."
+                intro="Strucureo Industries packages work that has already proven itself into products for specific industries. The first is industrial visual inspection, and it is still being shaped — we label maturity rather than implying a finished deployment."
+                definition="Strucureo Industries is the product arm of Strucureo, an engineering studio working with companies in the UAE, Singapore and beyond. It packages validated Labs work into industry products."
                 points={[
-                    { number: '01', label: 'Proven in Labs first' },
+                    { number: '01', label: 'Validated in Labs first' },
                     { number: '02', label: 'Configured to your team' },
                     { number: '03', label: 'Early partners welcome' },
                 ]}
@@ -175,7 +182,7 @@ export default function IndustriesPage() {
             <SplitList
                 eyebrow="Product Lines"
                 title="Starting points"
-                intro="The first packages are being shaped with early partners."
+                intro="The first packages are being shaped with early partners. None is claimed as deployed."
             >
                 {productLines.map((line, index) => (
                     <NumberedRow
@@ -203,7 +210,7 @@ export default function IndustriesPage() {
                                 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-6"
                             />
                             <AnimatedText
-                                text="Build projects are designed around one client. Industry products start from a shared, proven core and are configured to fit."
+                                text="A Build engagement is designed around one client. An industry product starts from a shared, validated core and is configured to fit — with the unproven parts named."
                                 className="text-xl md:text-2xl font-light text-[#6E6E6E] leading-relaxed mb-8 max-w-md"
                                 delay={0.2}
                             />
@@ -235,7 +242,7 @@ export default function IndustriesPage() {
                         'Guided setup and training',
                         'Support path after launch',
                         'Early-partner terms',
-                        'Availability by industry',
+                        'Availability and maturity stated per industry',
                     ].map((standard, index) => (
                         <NumberedRow
                             key={standard}
