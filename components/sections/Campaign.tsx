@@ -62,21 +62,21 @@ export const SystemsForWork = () => (
         the first so people have more room for the second.
       </p>
       <p className="text-lg text-[#6E6E6E] leading-relaxed max-w-3xl">
-        We build automation, software and AI agents that take over the repeated
-        steps, so the people on your team can spend their time on judgement,
-        creative work and new ideas.
+        We build systems — software, devices and agents — that carry the
+        repeated steps, so the people on your team can spend their time on
+        judgement, creative work and new ideas.
       </p>
     </div>
   </Section>
 );
 
 const buildItems = [
-  { label: 'Websites', anchor: '#websites' },
-  { label: 'AI chatbots', anchor: '#chatbots' },
-  { label: 'ERP systems', anchor: '#erp' },
-  { label: 'Startup MVPs', anchor: '#mvp' },
-  { label: 'Custom software', anchor: '#software' },
-  { label: 'Automation', anchor: '#software' },
+  { label: 'Product & systems', anchor: '#product-systems' },
+  { label: 'Software & infrastructure', anchor: '#software-infrastructure' },
+  { label: 'AI & agentic systems', anchor: '#ai-agentic' },
+  { label: 'Embedded & connected', anchor: '#embedded' },
+  { label: 'Machine vision', anchor: '#machine-vision' },
+  { label: 'Secure data & AI', anchor: '#secure-data' },
 ];
 
 export const WhatWeBuild = () => (
@@ -86,9 +86,9 @@ export const WhatWeBuild = () => (
         What we build
       </h2>
       <p className="text-lg text-[#6E6E6E] leading-relaxed max-w-3xl mb-8">
-        Websites, AI chatbots, ERP systems, startup MVPs, custom software and
-        automation. These are some of the ways we solve problems. They are not
-        the limit of what we take on.
+        Capabilities, not a product menu. These describe the engineering scope we
+        can work in. The system is chosen from the problem — and they are not the
+        limit of what we take on.
       </p>
       <div className="flex flex-wrap gap-3">
         {buildItems.map((item) => (

@@ -12,23 +12,23 @@ import { faqPageNode, breadcrumbList } from '@/lib/jsonld';
 
 export const metadata: Metadata = {
     title: {
-        default: 'Strucureo: Custom Software & Automation | UAE & India',
+        default: 'Strucureo: Engineering Studio for Embedded, AI & Secure Systems',
         template: '%s | Strucureo'
     },
-    description: 'Engineering studio for the UAE and India. We find the root cause, then build the system: custom software, automation, AI chatbots, ERP and websites.',
+    description: 'We engineer solutions and products around real technical problems — using hardware, software and AI where it adds value. Embedded, AI infrastructure and secure systems engineering, focused on the UAE and Singapore.',
     keywords: [
         'engineering studio UAE',
-        'custom software development India',
-        'software studio Dubai',
-        'startup MVP development Chennai',
-        'AI chatbot development UAE',
-        'ERP development India',
-        'engineering studio Dubai',
-        'software development Bangalore'
+        'embedded systems engineering',
+        'AI infrastructure engineering',
+        'secure systems engineering',
+        'machine vision inspection',
+        'systems engineering Singapore',
+        'hardware software integration',
+        'technical feasibility study',
     ],
     openGraph: {
-        title: 'Strucureo: Custom Software & Automation | UAE & India',
-        description: 'Engineering studio for the UAE and India. We find the root cause, then build the system: custom software, automation, AI chatbots, ERP and websites.',
+        title: 'Strucureo: Engineering Studio for Embedded, AI & Secure Systems',
+        description: 'We engineer solutions and products around real technical problems — using hardware, software and AI where it adds value.',
         url: 'https://www.strucureo.com',
         siteName: 'Strucureo',
         locale: 'en_US',
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Strucureo: Custom Software & Automation | UAE & India',
-        description: 'We find the root cause, then build the system: custom software, automation, AI chatbots, ERP and websites for the UAE and India.',
+        title: 'Strucureo: Engineering Studio for Embedded, AI & Secure Systems',
+        description: 'Embedded, AI infrastructure and secure systems engineering — hardware, software and AI where each one earns its place.',
         creator: '@strucureo',
         images: ['https://www.strucureo.com/opengraph-image.png']
     },
@@ -68,24 +68,28 @@ export const metadata: Metadata = {
 export default function Home() {
     const homeFaqs = [
         {
-            question: 'What does Strucureo build?',
-            answer: 'Websites, AI chatbots, ERP systems, startup MVPs, custom software and automation — delivered in days to a few weeks, depending on scope, with a fixed scope, one dedicated contact, and support after launch.',
+            question: 'What does Strucureo do?',
+            answer: 'Strucureo is an engineering studio. We diagnose a technical problem, then design and build the system around it: product and systems engineering, software and infrastructure, AI and agentic systems, embedded and connected devices, machine vision, and secure data infrastructure. Hardware, software and AI are used where each one earns its place.',
         },
         {
-            question: 'How fast can Strucureo deliver?',
-            answer: 'Most websites and MVPs are delivered in days to a few weeks depending on scope. We diagnose first, agree options, then build in focused milestones.',
+            question: 'What kind of problems does Strucureo take on?',
+            answer: 'Problems where the cause is not obvious from the outside — a device that will not integrate cleanly, an inspection step that depends on human judgement, an AI workflow nobody can measure, or a platform that breaks under load. Each engagement starts with discovery and a feasibility check before any build is committed.',
         },
         {
-            question: 'Does Strucureo work with clients in the UAE and India?',
-            answer: 'Yes. We serve clients globally with a focus on the UAE (Dubai, Abu Dhabi) and India (Chennai, Bangalore, Mumbai), overlapping both timezones. See our UAE and India pages for local details.',
+            question: 'Do you build hardware as well as software?',
+            answer: 'Where the problem crosses the boundary, yes. Embedded Linux, device integration, gateways and hardware–software interfaces sit alongside our software and AI work. Certification, field service and hardware procurement are agreed per engagement rather than assumed.',
         },
         {
-            question: 'How much does a project cost?',
-            answer: 'Projects start from 15,000 INR (about AED 570 or USD 180), depending on scope. Every engagement starts with diagnosis and a fixed-price roadmap agreed before any code is written. Contact us for a tailored quote and timeline.',
+            question: 'Where does Strucureo work?',
+            answer: 'We are a remote engineering studio, and our current acquisition focus is the UAE and Singapore, with other markets handled case by case. We do not have an office or a local presence in either market, and we do not claim one.',
+        },
+        {
+            question: 'How is an engagement priced?',
+            answer: 'Each engagement is scoped and priced on its own work. Discovery and feasibility come first, and the scope of each later stage is agreed before it starts, so cost is known before build. We do not carry a website-project price floor into engineering work.',
         },
         {
             question: 'How do we start?',
-            answer: 'Book a free consultation through the contact form below or write to support@strucureo.com with your requirements. You receive practical solution paths with tradeoffs before committing to a build.',
+            answer: 'Send the problem, your current equipment or software environment, the outcome you want, your constraints and your timeline through the contact form, or write to support@strucureo.com. You get a technical read on whether the approach is feasible before committing to a build.',
         },
     ];
     const faqSchema = faqPageNode(homeFaqs);

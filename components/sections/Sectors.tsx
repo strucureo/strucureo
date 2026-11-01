@@ -33,17 +33,17 @@ export const Sectors = () => {
   const items = [
     {
       title: 'Strucureo Build',
-      desc: 'Custom software for startups and businesses, delivered in days to a few weeks, depending on scope. Websites, AI chatbots, ERP systems and MVPs.',
+      desc: 'Client engineering. We diagnose the technical problem and build the system around it — hardware, software, integrated devices and products.',
       icon: Hammer
     },
     {
       title: 'Strucureo Labs',
-      desc: 'Research and prototypes. We turn problems that repeat across client work into tested, reusable solutions.',
+      desc: 'Research, experiments and prototypes. We test approaches against real conditions before they touch a client system.',
       icon: FlaskConical
     },
     {
       title: 'Strucureo Industries',
-      desc: 'Industry products, shaped with early partners and built from proven Labs work.',
+      desc: 'Industry products built from validated work, shaped with early partners and labelled by maturity.',
       icon: Factory
     }
   ];
