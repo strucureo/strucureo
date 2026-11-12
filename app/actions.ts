@@ -5,16 +5,20 @@ interface SendEmailState {
     message: string;
 }
 
-const MAIL_API = `${process.env.MAIL_BASE_URL || 'https://api.driftspike.space'}/api/send-email`;
+const MAIL_BASE_URL = process.env.MAIL_BASE_URL || 'https://ceo-driftsrpikemail.vercel.app';
+const MAIL_API = `${MAIL_BASE_URL}/api/send-email`;
 
 async function sendMail(to: string, subject: string, html: string): Promise<boolean> {
+    const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+    };
+    if (process.env.MAIL_API_KEY) {
+        headers['x-api-key'] = process.env.MAIL_API_KEY;
+    }
     const res = await fetch(MAIL_API, {
         method: 'POST',
-        headers: {
-            'x-api-key': process.env.MAIL_API_KEY || '',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ to, subject, html }),
+        headers,
+        body: JSON.stringify({ to, subject, html, attachments: [] }),
     });
     if (!res.ok) {
         console.error('Email API Error:', res.status, await res.text());
@@ -34,8 +38,9 @@ export async function sendEmailAction(prevState: SendEmailState, formData: FormD
     try {
         // 1. Notify the studio. This is the lead of record — if it fails, the
         //    whole submission fails so we never lose a real lead.
+        const ownerEmail = process.env.CONTACT_EMAIL || process.env.LEAD_MAIL_TO || 'strucureo@gmail.com';
         const ownerOk = await sendMail(
-            'strucureo@gmail.com',
+            ownerEmail,
             `[Contact Form] ${name}`,
             `
         <h1>New Message from Strucureo Contact Form</h1>
