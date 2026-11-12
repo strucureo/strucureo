@@ -92,7 +92,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             .join('');
         try {
             const res = await fetch(
-                `${process.env.MAIL_BASE_URL || 'https://api.driftspike.space'}/api/send-email`,
+                `${process.env.MAIL_BASE_URL || 'https://ceo-driftsrpikemail.vercel.app'}/api/send-email`,
                 {
                     method: 'POST',
                     headers: {
