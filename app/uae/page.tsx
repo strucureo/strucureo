@@ -1,40 +1,92 @@
 import type { Metadata } from 'next';
-import { Building2, Globe, CreditCard } from 'lucide-react';
+import { Building2, Globe, CreditCard, Layers, Bot, Cog, Rocket } from 'lucide-react';
 import { FAQAccordion } from '@/components/FAQAccordion';
 import { SiteHeader } from '@/components/shared/SiteHeader';
 import { PageHero } from '@/components/shared/PageHero';
 import { NumberedRow } from '@/components/shared/NumberedRow';
 import { Section } from '@/components/shared/Section';
+import { SplitList } from '@/components/shared/SplitList';
 import { Contact } from '@/components/sections/Contact';
-import { breadcrumbList, faqPageNode } from '@/lib/jsonld';
+import { breadcrumbList, faqPageNode, buildServiceNodes } from '@/lib/jsonld';
 import { assertNoPlaceholders } from '@/lib/guard';
 
 const SITE_URL = 'https://www.strucureo.com';
 
+const uaeCapabilities = [
+    {
+        title: 'Operations & Workflow Automation',
+        description:
+            'Move operational processes off fragile spreadsheets and manual handoffs. Built for fabrication, construction, trade, and logistics businesses needing real-time job and production tracking.',
+        includes: [
+            'Job & project milestone tracking',
+            'Field & site operational logging',
+            'Automated inventory & resource allocation',
+            'Custom internal dashboards & reporting',
+        ],
+        icon: Cog,
+    },
+    {
+        title: 'Bespoke ERP & Internal Portals',
+        description:
+            'Tailored enterprise software designed around how your UAE business actually operates, without recurring per-seat subscription creep or restrictive feature lock-in.',
+        includes: [
+            'Role-based staff & manager portals',
+            'UAE VAT-ready invoice & record keeping',
+            'Vendor & procurement workflows',
+            'Audit trails & permission hierarchies',
+        ],
+        icon: Layers,
+    },
+    {
+        title: 'AI Chatbots & Automated Client Intake',
+        description:
+            'Intelligent conversational agents and automated qualification bots deployed across your website and messaging channels to capture and route inbound business leads around the clock.',
+        includes: [
+            '24/7 lead qualification & routing',
+            'Multi-channel messaging integration',
+            'Instant responses for MENA client inquiries',
+            'Direct syncing with internal CRMs & databases',
+        ],
+        icon: Bot,
+    },
+    {
+        title: 'Startup MVPs & Web Platforms',
+        description:
+            'Rapid product engineering for founders in DIFC, ADGM, and across Dubai and Abu Dhabi. Production-grade software delivered in days to weeks to validate and scale your product.',
+        includes: [
+            'Modern cloud architecture (Next.js, TypeScript)',
+            'MENA payment gateway integration',
+            'Secure authentication & user dashboards',
+            'Fixed-scope MVP delivery sprints',
+        ],
+        icon: Rocket,
+    },
+];
+
 const faqItems = [
     {
-        question: 'Does Strucureo work with startups based in Dubai / UAE?',
-        answer: 'Yes. We are specifically structured to support businesses across Dubai, Abu Dhabi, and the wider UAE. Whether you need a local corporate website, an MVP for a DIFC-based startup, or custom operations software, our team is equipped to deliver rapidly while accommodating your timezone.'
+        question: 'Does Strucureo work with businesses and startups based in Dubai and the UAE?',
+        answer: 'Yes. We work directly with businesses, operators, and startups across Dubai, Abu Dhabi, Sharjah, and the wider UAE. Whether you require bespoke operations software, an MVP for a DIFC or ADGM startup, or an internal ERP system, our team delivers with dedicated timezone overlap during Gulf business hours.'
     },
     {
         question: 'What is the typical cost of custom software development in the UAE?',
-        answer: 'Pricing depends on scope. We work on fixed-price roadmaps agreed before any code is written, with transparent pricing. Contact us with your requirements for a tailored quote and timeline.'
+        answer: 'Pricing depends strictly on scope. We provide transparent, fixed-price milestone roadmaps before any code is written, eliminating surprise cost overruns. Our initial project roadmaps give you clear deliverables, exact timelines, and fixed costs in AED or your preferred currency.'
     },
     {
-        question: 'Can you integrate local payment gateways like PayTabs or Telr?',
-        answer: 'Yes. We can integrate payment processors used in the region, including PayTabs, Telr, Checkout.com and Stripe, fitted to your platform.'
+        question: 'Can you integrate local UAE and MENA payment gateways?',
+        answer: 'Yes. We integrate regional payment providers including PayTabs, Telr, Checkout.com, and Stripe, customized for local payment preferences and currency handling.'
     },
     {
-        question: 'How fast can you build and launch a product?',
-        answer: 'We prioritize speed without sacrificing quality. Most websites and operational MVPs are delivered in days to a few weeks, depending on scope.'
+        question: 'How fast can you build and launch a custom system or MVP?',
+        answer: 'We build in focused, rapid sprints. Most custom operational tools and startup MVPs are delivered in days to a few weeks, allowing teams to test workflows and begin generating ROI immediately without lengthy corporate agency delays.'
     },
     {
-        question: 'What does Strucureo Build deliver in the UAE?',
-        answer: 'The same Build offering as everywhere: websites, AI chatbots, ERP systems and startup MVPs, delivered in days to a few weeks, depending on scope with one dedicated contact. UAE specifics are handled where they matter — timezone overlap, MENA payment gateways like PayTabs, Telr and Checkout.com, and transparent fixed-price roadmaps.'
+        question: 'Why choose custom software over monthly subscription SaaS tools?',
+        answer: 'Many UAE businesses outgrow generic SaaS platforms due to expensive per-seat licensing, lack of custom field support, and fragmented workflows across different tools. A dedicated system is owned by you, built precisely around your operational rules, and eliminates ongoing subscription creep.'
     },
     {
-        question: 'Do you only work with companies in Dubai?',
-        answer: 'No. We support businesses across Dubai, Abu Dhabi, Sharjah and the wider Emirates, all through the same remote process and shared portal. Write to support@strucureo.com if you need an in-person meeting and we will confirm availability.'
+        question: 'Do you only work with companies located in Dubai?',
+        answer: 'No. We support clients throughout Dubai, Abu Dhabi, Sharjah, and across the Emirates through a streamlined remote process with shared staging portals and direct engineer communication. For in-person consultations, contact support@strucureo.com.'
     }
 ];
 
@@ -45,23 +97,37 @@ const breadcrumbSchema = breadcrumbList([
 
 const faqSchema = faqPageNode(faqItems);
 
+const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@graph': buildServiceNodes(
+        uaeCapabilities.map((cap) => ({
+            name: cap.title,
+            description: cap.description,
+        }))
+    ),
+};
+
 export const metadata: Metadata = {
-        title: 'Software & Automation Studio in the UAE | Strucureo',
-    description: 'Custom software, process automation, AI chatbots and ERP for businesses in Dubai and Abu Dhabi. Fixed scope, one dedicated contact, support after launch.',
+    title: 'Custom Software & Operations Automation in Dubai & UAE | Strucureo',
+    description:
+        'Engineering studio building custom software, internal ERPs, operations automation and AI systems for businesses in Dubai & Abu Dhabi. Fixed AED pricing, delivered in weeks.',
     keywords: [
-        'engineering studio UAE',
-        'software studio Dubai',
-        'AI chatbot development company UAE',
-        'engineering studio Dubai',
         'custom software development UAE',
-        'startup MVP development Dubai'
+        'software development company Dubai',
+        'operations software Dubai',
+        'ERP systems UAE',
+        'construction fabrication software UAE',
+        'AI chatbot development UAE',
+        'startup MVP development Dubai',
+        'engineering studio UAE',
     ],
     alternates: {
         canonical: `${SITE_URL}/uae`,
     },
     openGraph: {
-    title: 'Software & Automation Studio in the UAE | Strucureo',
-        description: 'Custom software, process automation, AI chatbots and ERP for businesses in Dubai and Abu Dhabi. Fixed scope, one dedicated contact, support after launch.',
+        title: 'Custom Software & Operations Automation in Dubai & UAE | Strucureo',
+        description:
+            'Engineering studio building custom software, internal ERPs, operations automation and AI systems for businesses in Dubai & Abu Dhabi. Fixed AED pricing, delivered in weeks.',
         url: `${SITE_URL}/uae`,
         siteName: 'Strucureo',
         type: 'website',
@@ -70,7 +136,7 @@ export const metadata: Metadata = {
                 url: 'https://www.strucureo.com/opengraph-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'Strucureo Engineering Studio'
+                alt: 'Strucureo Engineering Studio UAE'
             }
         ]
     },
@@ -89,38 +155,70 @@ export default function UAEPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+            />
 
             <SiteHeader />
 
             <PageHero
                 eyebrow="United Arab Emirates"
-                title="Software and automation studio for businesses in the UAE"
-                intro="Strucureo is an engineering studio that builds custom software, process automation, AI chatbots and ERP systems for businesses in Dubai and Abu Dhabi. Every project starts with the root cause of the problem and a fixed-price roadmap."
-                definition="Strucureo is an engineering studio serving businesses across Dubai, Abu Dhabi and the Emirates. Through Strucureo Build it delivers custom software, AI chatbots, ERP systems and MVPs in days to a few weeks, depending on scope."
+                title="Custom software and operations systems for businesses in the UAE"
+                intro="Strucureo engineers custom software, internal operations platforms, ERPs and AI automation for companies across Dubai, Abu Dhabi and the Emirates. Fixed-price roadmaps in AED, delivered in days to a few weeks."
+                definition="Strucureo is an engineering studio delivering client software, operational ERPs, and startup MVPs for businesses across the UAE. Projects start from a clear diagnosis and transparent fixed-price milestones."
+                points={[
+                    { number: '01', label: 'Fixed AED roadmaps & milestone pricing' },
+                    { number: '02', label: 'Timezone overlap & 4h response window' },
+                    { number: '03', label: 'Delivery in days to a few weeks' },
+                    { number: '04', label: 'PayTabs, Telr & MENA gateway integration' },
+                ]}
             />
 
-            <Section>
+            <SplitList
+                eyebrow="Capabilities for the UAE"
+                title="Systems built for how regional businesses operate"
+                intro="From fabrication and construction tracking to internal ERPs and startup MVPs, we replace disconnected spreadsheets with tailored software."
+            >
+                {uaeCapabilities.map((capability, index) => (
+                    <NumberedRow
+                        key={capability.title}
+                        index={index}
+                        titleTag="h2"
+                        icon={<capability.icon className="w-12 h-12 text-[#111111]" />}
+                        title={capability.title}
+                        desc={capability.description}
+                        extra={
+                            <p className="mt-6 leading-relaxed text-[#6E6E6E]">
+                                {capability.includes.join(' · ')}
+                            </p>
+                        }
+                    />
+                ))}
+            </SplitList>
+
+            <Section className="bg-[#f9f9f9]">
                 {[
                     {
                         icon: Building2,
-                        title: 'Local Expertise',
-                        desc: 'Working with the business landscape of the UAE market.',
+                        title: 'Local Commercial Relevance',
+                        desc: 'Designed around the business environment in Dubai, Abu Dhabi, DIFC, and ADGM with Gulf Standard Time (GST) communication.',
                     },
                     {
                         icon: Globe,
-                        title: 'AED Pricing',
-                        desc: 'Transparent, fixed-price contracts in your preferred currency with no hidden fees.',
+                        title: 'Transparent AED Contracts',
+                        desc: 'Fixed-price milestone agreements invoiced in AED with clear specifications before any build begins.',
                     },
                     {
                         icon: CreditCard,
-                        title: 'MENA Integrations',
-                        desc: 'We can integrate local payment gateways and corporate systems into your platform.',
+                        title: 'MENA Gateway Integrations',
+                        desc: 'Native integrations with PayTabs, Telr, Checkout.com, and Stripe fitted to your customer checkout or billing workflows.',
                     },
                 ].map((feature, index) => (
                     <NumberedRow
                         key={feature.title}
                         index={index}
-                        titleTag="h2"
+                        titleTag="h3"
                         icon={<feature.icon className="w-12 h-12 text-[#111111]" />}
                         title={feature.title}
                         desc={feature.desc}
@@ -128,7 +226,7 @@ export default function UAEPage() {
                 ))}
             </Section>
 
-            <section className="px-6 py-20 md:px-12 lg:px-24 bg-[#f9f9f9]">
+            <section className="px-6 py-20 md:px-12 lg:px-24">
                 <div className="mx-auto max-w-3xl">
                     <p className="mb-4 text-xs uppercase tracking-[0.2em] opacity-40">
                         UAE FAQ
