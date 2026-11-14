@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { LucideIcon } from 'lucide-react';
 import {
+    ArrowRight,
     Bot,
     CircuitBoard,
     Layers,
@@ -231,26 +232,27 @@ const breadcrumbSchema = breadcrumbList([
 ]);
 
 export const metadata: Metadata = {
-    title: 'Engineering Capabilities: Embedded, Software, AI & Secure Systems | Strucureo',
+    title: 'Custom Systems & Software Engineering Services | Strucureo',
     description:
-        'Strucureo Build engineers solutions around real technical problems: product and systems engineering, software and infrastructure, AI and agentic systems, embedded and connected systems, machine vision, and secure data infrastructure.',
+        'Strucureo Build engineers bespoke software, AI systems, embedded IoT and infrastructure for companies in the UAE and Singapore. Scope agreed before build.',
     keywords: [
-        'engineering studio UAE',
+        'engineering services studio',
+        'custom software engineering UAE',
         'embedded systems engineering',
         'AI agentic systems engineering',
         'machine vision inspection',
         'secure data infrastructure',
         'systems engineering Singapore',
         'hardware software integration',
-        'technical feasibility study',
+        'technical discovery study',
     ],
     alternates: {
         canonical: `${SITE_URL}/services`,
     },
     openGraph: {
-        title: 'Engineering Capabilities: Embedded, Software, AI & Secure Systems | Strucureo',
+        title: 'Custom Systems & Software Engineering Services | Strucureo',
         description:
-            'We engineer solutions and products around real technical problems — using hardware, software and AI where it adds value.',
+            'We engineer solutions and products around real technical problems — using hardware, software and AI where it adds value. UAE, Singapore and beyond.',
         url: `${SITE_URL}/services`,
         siteName: 'Strucureo',
         type: 'website',
@@ -303,6 +305,54 @@ export default function ServicesPage() {
                 ]}
             />
 
+            {/* Above-the-fold Discovery CTA Bar */}
+            <section className="border-y border-[#111111]/10 px-6 py-10 md:px-12 lg:px-24 bg-[#fafafa]">
+                <div className="mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                    <div>
+                        <p className="text-xs font-mono uppercase tracking-[0.2em] text-[#555555] mb-2">
+                            Client Engagements
+                        </p>
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+                            Have a technical problem or custom system to engineer?
+                        </h2>
+                        <p className="text-sm md:text-base text-[#6E6E6E] mt-2 max-w-xl leading-relaxed">
+                            Direct technical discovery with our engineering team. Fixed scope and evidence-based milestones agreed before code is written.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-4 shrink-0">
+                        <a
+                            href="#contact"
+                            className="px-8 py-4 bg-[#111111] text-white font-bold tracking-widest text-xs uppercase hover:bg-black/80 transition-colors inline-flex items-center gap-2"
+                        >
+                            Start Discovery
+                            <ArrowRight className="w-4 h-4" />
+                        </a>
+                        <a
+                            href="https://wa.me/919344275731?text=Hi%20Strucureo%20team,%20I%20would%20like%20to%20discuss%20an%20engineering%20project."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-6 py-4 border border-[#111111] text-[#111111] font-bold tracking-widest text-xs uppercase hover:bg-[#111111] hover:text-white transition-colors inline-flex items-center gap-2"
+                        >
+                            WhatsApp Engineering
+                        </a>
+                    </div>
+                </div>
+                <div className="mt-8 pt-6 border-t border-[#111111]/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono text-[#555555]">
+                    <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#111111]" />
+                        <span>Direct engineer communication</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#111111]" />
+                        <span>Fixed scope & milestone roadmaps</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#111111]" />
+                        <span>No lock-in · 100% IP handover</span>
+                    </div>
+                </div>
+            </section>
+
             <SplitList
                 eyebrow="Capabilities"
                 title="What we take on"
@@ -317,9 +367,17 @@ export default function ServicesPage() {
                         title={service.title}
                         desc={service.description}
                         extra={
-                            <p className="mt-6 leading-relaxed text-[#6E6E6E]">
-                                {service.includes.join(' · ')}
-                            </p>
+                            <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <p className="leading-relaxed text-[#6E6E6E]">
+                                    {service.includes.join(' · ')}
+                                </p>
+                                <a
+                                    href="#contact"
+                                    className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest font-bold text-[#111111] hover:opacity-60 transition-opacity shrink-0"
+                                >
+                                    Scope this system <ArrowRight className="w-3.5 h-3.5" />
+                                </a>
+                            </div>
                         }
                     />
                 ))}
